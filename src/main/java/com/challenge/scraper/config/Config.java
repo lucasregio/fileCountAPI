@@ -26,10 +26,11 @@ public class Config {
     }
 
     private static String setUrlTokens(String url, Repository repository, Path path) {
-        return url  .replace("{{user}}", repository.getUser())
-                .replace("{{project}}", repository.getProject())
-                .replace("{{branch}}", repository.getBranch())
-                .replace("{{path}}", path.getAbsolutePath());
+//        return url  .replace("{{user}}", repository.getUser())
+//                .replace("{{project}}", repository.getProject())
+//                .replace("{{branch}}", repository.getBranch())
+//                .replace("{{path}}", path.getAbsolutePath());
+    	return "";
     }
 
     public static GitConfig parse(String url) throws ClassNotFoundException {
