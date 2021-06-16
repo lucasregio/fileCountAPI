@@ -1,8 +1,11 @@
 package com.challenge.scraper.model;
 
 import java.io.Serializable;
+import java.util.List;
+import java.util.stream.Collectors;
 
-public class File implements Serializable {
+public class FileDTO implements Serializable {
+	
 
 	/**
 	 * 
@@ -21,20 +24,17 @@ public class File implements Serializable {
 	private Long quantLines;
 	private String extension;
 
-	public File() {
+	public FileDTO() {
 	}
 
-	public File(String userGithub, String nameGithub) {
-		this.userGithub = userGithub;
-		this.nameGithub = nameGithub;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
+	public FileDTO(File u) {
+		this.setId(u.getId());
+		this.userGithub = u.getUserGithub();
+		this.nameGithub = u.getNameGithub();
+		this.description = u.getDescription();
+		this.size = u.getSize();
+		this.quantLines = u.getQuantLines();
+		this.extension = u.getExtension();
 	}
 
 	public String getDescription() {
@@ -85,28 +85,17 @@ public class File implements Serializable {
 		this.nameGithub = nameGithub;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		return result;
+	public List<FileDTO> toList(List<File> listObj) {
+		List<FileDTO> listDto = listObj.stream().map(u -> new FileDTO(u)).collect(Collectors.toList());
+		return listDto;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		File other = (File) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		return true;
+	public Long getId() {
+		return id;
 	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 }
